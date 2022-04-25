@@ -30,6 +30,7 @@ header {
   grid-template-columns: 1fr min-content;
   grid-gap: 5px;
   padding: 5px;
+  text-align: right;
 }
 header > div {
   display: grid;
