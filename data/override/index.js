@@ -35,6 +35,95 @@ const bing = {
   }
 };
 
+const start = () => chrome.storage.local.get({
+  'custom-bg': false,
+  'custom-image': ''
+}, prefs => {
+  if (prefs['custom-bg'] && prefs['custom-image']) {
+    bing.insert(prefs['custom-image']);
+  }
+  else {
+    bing.insert(localStorage.getItem('image') || chrome.runtime.getURL('data/override/default.jpg'));
+    bing.url('en-US').then(u => {
+      if (u !== cookie.get('url')) {
+        const req = new XMLHttpRequest();
+        req.open('GET', u);
+        req.responseType = 'blob';
+        req.onload = () => {
+          const fileReader = new FileReader();
+          fileReader.onload = ({target}) => {
+            const dataURL = target.result;
+            localStorage.setItem('image', dataURL);
+            bing.insert(dataURL);
+            cookie.set('url', u);
+          };
+          fileReader.readAsDataURL(req.response);
+        };
+        req.send();
+      }
+    });
+  }
+});
+start();
+chrome.storage.onChanged.addListener(ps => {
+  if (ps['custom-bg'] || ps['custom-image']) {
+    start();
+  }
+});
+
+function update() {
+  const td = s => ('00' + s).substr(-2);
+
+  const now = new Date();
+  $.time.textContent = `${now.getHours()}:${td(now.getMinutes())}:${td(now.getSeconds())}`;
+  $.date.textContent =
+    ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][now.getDay()] +
+    ', ' +
+    ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][now.getMonth()] +
+    ' ' +
+    td(now.getDate());
+}
+update();
+{
+  let id;
+  const one = () => {
+    window.clearTimeout(id);
+    id = window.setTimeout(one, 1000);
+    update();
+  };
+  one();
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      window.clearTimeout(id);
+    }
+    else {
+      one();
+    }
+  });
+}
+
+var rq = new RandomQuote();
+rq.setQuote();
+
+// Fixes
+document.addEventListener('click', e => {
+  const a = e.target.closest('a');
+  if (a && a.href && (
+    a.href.startsWith('chrome://') ||
+    a.href.startsWith('about:')
+  )) {
+    e.preventDefault();
+    chrome.tabs.query({
+      active: true,
+      currentWindow: true
+    }, ([tab]) => chrome.tabs.update(tab.id, {
+      url: a.href
+    }));
+  }
+});
+
+
+
 // const bookmarks = {
 //   id: typeof InstallTrigger === 'undefined' ? '1' : 'toolbar_____',
 //   favicon: (url, img) => {
@@ -109,42 +198,6 @@ var topSites = {
 };
 */
 
-const start = () => chrome.storage.local.get({
-  'custom-bg': false,
-  'custom-image': ''
-}, prefs => {
-  if (prefs['custom-bg'] && prefs['custom-image']) {
-    bing.insert(prefs['custom-image']);
-  }
-  else {
-    bing.insert(localStorage.getItem('image') || chrome.runtime.getURL('data/override/default.jpg'));
-    bing.url('en-US').then(u => {
-      if (u !== cookie.get('url')) {
-        const req = new XMLHttpRequest();
-        req.open('GET', u);
-        req.responseType = 'blob';
-        req.onload = () => {
-          const fileReader = new FileReader();
-          fileReader.onload = ({target}) => {
-            const dataURL = target.result;
-            localStorage.setItem('image', dataURL);
-            bing.insert(dataURL);
-            cookie.set('url', u);
-          };
-          fileReader.readAsDataURL(req.response);
-        };
-        req.send();
-      }
-    });
-  }
-});
-start();
-chrome.storage.onChanged.addListener(ps => {
-  if (ps['custom-bg'] || ps['custom-image']) {
-    start();
-  }
-});
-
 /*
 topSites.list().then(entries => {
   entries.forEach(topSites.add);
@@ -152,36 +205,7 @@ topSites.list().then(entries => {
 */
 // bookmarks.build();
 
-function update() {
-  const td = s => ('00' + s).substr(-2);
 
-  const now = new Date();
-  $.time.textContent = `${now.getHours()}:${td(now.getMinutes())}:${td(now.getSeconds())}`;
-  $.date.textContent =
-    ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][now.getDay()] +
-    ', ' +
-    ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][now.getMonth()] +
-    ' ' +
-    td(now.getDate());
-}
-update();
-{
-  let id;
-  const one = () => {
-    window.clearTimeout(id);
-    id = window.setTimeout(one, 1000);
-    update();
-  };
-  one();
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      window.clearTimeout(id);
-    }
-    else {
-      one();
-    }
-  });
-}
 
 // Drag & Drop
 // $.header.parent.addEventListener('dragover', e => {
@@ -216,19 +240,4 @@ update();
 //   }
 // });
 
-// Fixes
-document.addEventListener('click', e => {
-  const a = e.target.closest('a');
-  if (a && a.href && (
-    a.href.startsWith('chrome://') ||
-    a.href.startsWith('about:')
-  )) {
-    e.preventDefault();
-    chrome.tabs.query({
-      active: true,
-      currentWindow: true
-    }, ([tab]) => chrome.tabs.update(tab.id, {
-      url: a.href
-    }));
-  }
-});
+

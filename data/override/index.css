@@ -197,6 +197,18 @@ header [data-id=sidebar] * {
   width: 50%;
 }
 
+.quoteCntnr{
+  align-self: end;
+    width: 50%;
+    margin-left: auto;
+    padding-right: 15px;
+}
+
+#quote{
+  color: #fff;
+  font: 20px monospace;
+}
+
 [hbox] {
   display: flex;
   flex-direction: row;
