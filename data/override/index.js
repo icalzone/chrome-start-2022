@@ -75,7 +75,7 @@ function update() {
   const td = s => ('00' + s).substr(-2);
 
   const now = new Date();
-  $.time.textContent = `${now.getHours()}:${td(now.getMinutes())}:${td(now.getSeconds())}`;
+  $.time.textContent = `${now.getHours() % 12 || 12}:${td(now.getMinutes())}:${td(now.getSeconds())}`;
   $.date.textContent =
     ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][now.getDay()] +
     ', ' +
