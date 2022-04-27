@@ -87,6 +87,7 @@ input[type=file] {
   background-color: rgba(37, 37, 37, 0.4);
   padding: 30px;
   color: whitesmoke;
+  border-radius: 10px;
 }
 .two {
   display: grid;
@@ -201,12 +202,11 @@ header [data-id=sidebar] * {
   align-self: end;
     width: 50%;
     margin-left: auto;
-    padding-right: 15px;
 }
 
 #quote{
-  color: #fff;
   font: 20px monospace;
+  margin-top: 10px;
 }
 
 [hbox] {
