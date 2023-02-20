@@ -75,9 +75,9 @@ chrome.storage.local.get({
     }
   });
   // support
-  document.getElementById('support').addEventListener('click', () => chrome.tabs.create({
-    url: chrome.runtime.getManifest().homepage_url + '&rd=donate'
-  }));
+  // document.getElementById('support').addEventListener('click', () => chrome.tabs.create({
+  //   url: chrome.runtime.getManifest().homepage_url + '&rd=donate'
+  // }));
 }
 
 document.getElementById('image').onchange = e => {

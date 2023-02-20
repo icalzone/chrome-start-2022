@@ -2,7 +2,7 @@
 
 window.addEventListener('load', () => document.body.dataset.ready = true);
 
-const $ = {
+const $$ = {
   body: document.body,
   header: {
     parent: document.querySelector('header>div'),
@@ -31,7 +31,7 @@ const bing = {
       .then(r => base + r.images[0].url);
   },
   insert: url => {
-    $.body.style['background-image'] = `url('${url}')`;
+    $$.body.style['background-image'] = `url('${url}')`;
   }
 };
 
@@ -75,8 +75,8 @@ function update() {
   const td = s => ('00' + s).substr(-2);
 
   const now = new Date();
-  $.time.textContent = `${now.getHours() % 12 || 12}:${td(now.getMinutes())}:${td(now.getSeconds())}`;
-  $.date.textContent =
+  $$.time.textContent = `${now.getHours() % 12 || 12}:${td(now.getMinutes())}:${td(now.getSeconds())}`;
+  $$.date.textContent =
     ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][now.getDay()] +
     ', ' +
     ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][now.getMonth()] +
@@ -136,13 +136,13 @@ document.addEventListener('click', e => {
 //   },
 //   add: e => {
 //     const {title, url, id} = e;
-//     const node = document.importNode($.header.template.content, true);
+//     const node = document.importNode($$.header.template.content, true);
 //     const a = node.querySelector('a');
 //     a.href = url;
 //     a.dataset.id = id;
 //     node.querySelector('span').title = node.querySelector('span').textContent = title;
 //     bookmarks.favicon(url, node.querySelector('img'));
-//     $.header.parent.appendChild(node);
+//     $$.header.parent.appendChild(node);
 //     return node;
 //   },
 //   bar: id => new Promise(resolve => {
@@ -153,7 +153,7 @@ document.addEventListener('click', e => {
 //       favicon: true
 //     }, prefs => {
 //       bookmarks.remote = prefs.favicon;
-//       [...$.header.parent.querySelectorAll('a')]
+//       [...$$.header.parent.querySelectorAll('a')]
 //         .filter(a => a.dataset.id !== 'apps' && a.dataset.id !== 'sidebar')
 //         .forEach(a => a.remove());
 //       bookmarks.bar().then(entries => entries
@@ -208,12 +208,12 @@ topSites.list().then(entries => {
 
 
 // Drag & Drop
-// $.header.parent.addEventListener('dragover', e => {
+// $$.header.parent.addEventListener('dragover', e => {
 //   if ([...e.dataTransfer.types].indexOf('text/uri-list') !== -1) {
 //     e.preventDefault();
 //   }
 // });
-// $.header.parent.addEventListener('drop', e => {
+// $$.header.parent.addEventListener('drop', e => {
 //   e.preventDefault();
 
 //   const url = e.dataTransfer.getData('text/uri-list');

@@ -24,6 +24,11 @@
         "607D8B"
     ];
     self.quotes = [
+        'If you are not embarrassed by the first version of your product, you’ve launched too late. <span>-Reid Hoffman</span>',
+        'Ideas are easy implementation is hard. <span>-Guy Kawasaki</span>',
+        'Reject the tyranny of picked. Pick yourself. <span>-Seth Godin</span>',
+        'Art is what you can get away with. <span>-Andy Warhol</span>',
+        'You must expect great things of yourself before you can do them. <span>-Micheal Jordan</span>',
         'Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time. <span>-Thomas A. Edison</span>',
         'You are never too old to set another goal or to dream a new dream. <span>-C.S. Lewis</span>',
         'Doubt whom you will, but never yourself. <span>-Christian Nestell Bovee</span>',

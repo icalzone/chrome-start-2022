@@ -1,141 +1,179 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Chrome Start 2022</title>
-    <link rel="stylesheet" href="weather/weather-icons.css">
-    <link rel="stylesheet" href="index.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="font-awesome/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="weather/weather-icons.css" />
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body vbox>
     <header>
-      <!-- <div>
-        <a href="chrome://apps/" hbox align=center class="chrome" data-id="apps">
+      <div>
+        <!-- <a href="chrome://apps/" hbox align=center class="chrome" data-id="apps">
           <img src="apps.svg" width="16" height="16">
           <span>Apps</span>
-        </a>
-      </div> -->
+        </a> -->
+
+        <div class="grid" id="searchCntnr">
+          <div id="srchImgBx">
+            <i class="fa fa-google fa-2x" aria-hidden="true" id="google" class="srchBxImg" ></i>
+            <i class="fa fa-stack-overflow fa-2x" aria-hidden="true" id="stackoverflow" class="srchBxImg" ></i>
+            <i class="fa fa-github fa-2x" aria-hidden="true" id="github" class="srchBxImg" ></i>
+            <i class="fa fa-youtube fa-2x" aria-hidden="true" id="youtube" class="srchBxImg" ></i>
+            <i class="" aria-hidden="true" id="hypertherm" class="srchBxImg" ><image src="search/H.png" /></i>
+          </div>
+          <div id="srchBx"></div>
+        </div>
+      </div>
       <template>
-        <a href="" hbox align=center>
-          <img src="web.svg" width="16" height="16">
+        <a href="" hbox align="center">
+          <img src="web.svg" width="16" height="16" />
           <span>-</span>
         </a>
       </template>
       <a data-id="sidebar">
         <svg viewBox="0 0 24 24" width="24">
-          <path d="M0 0h24v24H0z" fill="none"/>
-          <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/>
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" />
         </svg>
       </a>
     </header>
+
     <div id="body" flex="1" vbox pack="center" align="center">
       <div class="grid" vbox>
         <span id="time">--.--.--</span>
         <span id="date">Tue, Apr, 18</span>
       </div>
     </div>
-    <form id="search" flex="1" vbox pack="center" align="center">
-      <div>
-        <input type="search" name="">
-        <div vbox inline>
-          <div>
-            <img src="search/google.png">
-            <img src="search/bing.png">
-          </div>
-          <div>
-            <img src="search/duckduckgo.png">
-            <img src="search/wikipedia.png">
-          </div>
-        </div>
-      </div>
-    </form>
+
     <footer hbox>
-      <div id="weather" data-visible=false class="grid">
-        <a href="#" hbox pack=center target="_blank">
+      <div id="weather" data-visible="false" class="grid">
+        <a href="#" hbox pack="center" target="_blank">
           <span data-id="temperature"></span>°&nbsp;-&nbsp;
           <i class="wi"></i>
           <span data-id="description"></span>
         </a>
       </div>
       <div class="quoteCntnr grid">
-      <p id="quote"></p>
-    </div>
+        <p id="quote"></p>
+      </div>
     </footer>
-    <div id="sidebar" data-open=false vbox>
+
+    <div id="sidebar" data-open="false" vbox>
       <h3>Weather Widget</h3>
-      <table width=100%>
+      <table width="100%">
         <colgroup>
-          <col width="22">
-          <col width=100>
-          <col>
+          <col width="22" />
+          <col width="100" />
+          <col />
         </colgroup>
         <tr>
-          <td><input type="checkbox" id="prefs.weather"></td>
-          <td colspan="2"><label for=prefs.weather>Display current weather condition</label></td>
+          <td><input type="checkbox" id="prefs.weather" /></td>
+          <td colspan="2">
+            <label for="prefs.weather">Display current weather condition</label>
+          </td>
         </tr>
         <tr>
           <td></td>
           <td>City ID</td>
-          <td><input type="text" id="prefs.city" placeholder="e.g.: London or London,uk"></td>
+          <td>
+            <input
+              type="text"
+              id="prefs.city"
+              placeholder="e.g.: London or London,uk"
+            />
+          </td>
         </tr>
         <tr>
           <td></td>
           <td>Position</td>
           <td>
             <div>
-              <input type="text" id="prefs.latitude" placeholder="Latitude" style="margin-bottom: 1px">
-              <input type="text" id="prefs.longitude" placeholder="Longitude">
+              <input
+                type="text"
+                id="prefs.latitude"
+                placeholder="Latitude"
+                style="margin-bottom: 1px;"
+              />
+              <input type="text" id="prefs.longitude" placeholder="Longitude" />
             </div>
           </td>
         </tr>
         <tr>
           <td></td>
           <td>ZIP Code</td>
-          <td><input type="text" id="prefs.zip" placeholder="e.g.: 94040,us"></td>
+          <td>
+            <input type="text" id="prefs.zip" placeholder="e.g.: 94040,us" />
+          </td>
         </tr>
         <tr>
           <td></td>
           <td>Unit</td>
-          <td><select id="prefs.units">
-            <option value="metric">Metric (Celsius)</option>
-            <option value="imperial">Imperial (Fahrenheit)</option>
-            <option value="kelvin">Kelvin</option>
-          </select></td>
+          <td>
+            <select id="prefs.units">
+              <option value="metric">Metric (Celsius)</option>
+              <option value="imperial">Imperial (Fahrenheit)</option>
+              <option value="kelvin">Kelvin</option>
+            </select>
+          </td>
         </tr>
         <tr>
-          <td><input type="checkbox" id="prefs.accurate"></td>
-          <td colspan="2"><label for=prefs.accurate>Display decimal point</label></td>
+          <td><input type="checkbox" id="prefs.accurate" /></td>
+          <td colspan="2">
+            <label for="prefs.accurate">Display decimal point</label>
+          </td>
         </tr>
         <tr>
           <td></td>
           <td>Language</td>
-          <td><input type="text" id="prefs.lang" placeholder="e.g.: ru, en ... "></td>
+          <td>
+            <input
+              type="text"
+              id="prefs.lang"
+              placeholder="e.g.: ru, en ... "
+            />
+          </td>
         </tr>
       </table>
       <h3>Custom CSS</h3>
-      <textarea id="userstyle" rows="10" placeholder="This CSS code can be used to alter the start's page user interface. You can alter almost anything, from the background image to the font-size"></textarea>
+      <textarea
+        id="userstyle"
+        rows="10"
+        placeholder="This CSS code can be used to alter the start's page user interface. You can alter almost anything, from the background image to the font-size"
+      ></textarea>
       <h3>Favicon</h3>
       <div class="two">
-        <input type="checkbox" id="favicon">
-        <label for=favicon>Use Google S2 favicon service to resolve icons</label>
+        <input type="checkbox" id="favicon" />
+        <label for="favicon"
+          >Use Google S2 favicon service to resolve icons</label
+        >
       </div>
       <h3>Custom Background</h3>
       <div class="two">
-        <input type="checkbox" id="custom-bg">
-        <label for="custom-bg">Click <label for=image><b>here</b></label> to update</label>
+        <input type="checkbox" id="custom-bg" />
+        <label for="custom-bg"
+          >Click <label for="image"><b>here</b></label> to update</label
+        >
       </div>
-      <input type="file" id="image" accept="image/*">
+      <input type="file" id="image" accept="image/*" />
 
-      <div flex=1></div>
+      <div flex="1"></div>
       <p class="two">
-        <input type="button" value="Support Development" id="support">
         <span id="status"></span>
-        <input type="button" value="Reset" id="reset">
-        <input type="button" value="Save" id="save">
+        <input type="button" value="Reset" id="reset" />
+        <input type="button" value="Save" id="save" />
       </p>
     </div>
+    <script src="lib/jquery-3.1.1.min.js"></script>
     <script src="sidebar/index.js"></script>
     <script src="weather/index.js"></script>
     <script src="quotes/RandomQuote.js"></script>
+    <script src="search/search.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
